@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You Won a Prize! 🎉</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: radial-gradient(circle at top, #ff9ebb, #fff1f5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow: hidden;
+  }
+  .card {
+    background: #ffffff;
+    color: #3a2a30;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 2;
+  }
+  h1 { font-size: 1.6rem; margin-bottom: 0.5rem; line-height: 1.4; }
+  p { font-size: 1.05rem; opacity: 0.85; margin-bottom: 1.5rem; }
+  .emoji { font-size: 3.5rem; margin-bottom: 1rem; }
+  button {
+    border: none;
+    background: #ff6b8b;
+    color: white;
+    padding: 1rem 2.2rem;
+    border-radius: 14px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  button:active { transform: scale(0.95); }
+  .hidden { display: none; }
+  .message { font-size: 1.3rem; line-height: 1.6; font-weight: 600; }
+  .heart { color: #ff6b8b; }
+  .confetti {
+    position: fixed;
+    top: -10px;
+    font-size: 1.5rem;
+    animation: fall linear forwards;
+    z-index: 1;
+  }
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); opacity: 0.8; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card" id="screen1">
+  <div class="emoji">🎉</div>
+  <h1>Congratulations!</h1>
+  <p>You've won a special prize!</p>
+  <button onclick="showPrize()">Claim Your Prize</button>
+</div>
+
+<div class="card hidden" id="screen2">
+  <div class="emoji">🤗❤️</div>
+  <p class="message">
+    Your prize is... a big hug!<br><br>
+    I just wanted to say I love you so much, Mama.<br>
+    Thank you for everything you do for me <span class="heart">♥</span>
+  </p>
+  <button onclick="document.body.innerHTML='<div style=\'text-align:center;margin-top:40vh;font-family:sans-serif;color:#ff6b8b;font-size:2rem\'>💖</div>';">Aww, OK</button>
+</div>
+
+<script>
+  function showPrize() {
+    document.getElementById('screen1').classList.add('hidden');
+    document.getElementById('screen2').classList.remove('hidden');
+    spawnConfetti();
+  }
+
+  function spawnConfetti() {
+    const emojis = ['🎉','💖','🎈','✨','❤️'];
+    for (let i = 0; i < 30; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (2 + Math.random() * 2) + 's';
+      el.style.animationDelay = (Math.random() * 0.5) + 's';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 5000);
+    }
+  }
+</script>
+
+</body>
+</html>
